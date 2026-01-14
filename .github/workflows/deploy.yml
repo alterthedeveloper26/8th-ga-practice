@@ -17,14 +17,15 @@ jobs:
       MONGODB_CONNECTION_PROTOCOL: mongodb
       # MONGODB_CLUSTER_ADDRESS: mongodb
       MONGODB_CLUSTER_ADDRESS: 127.0.0.1
+      MONGODB_PORT: 3005
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
-      PORT: 3005
+      PORT: 3000
     services:
       mongodb:
         image: mongo
         ports:
-          - 27017:3005
+          - 3005:27017
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example

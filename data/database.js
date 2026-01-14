@@ -2,11 +2,14 @@ import { MongoClient } from 'mongodb';
 
 const connectionProtocol = process.env.MONGODB_CONNECTION_PROTOCOL;
 const clusterAddress = process.env.MONGODB_CLUSTER_ADDRESS;
+const dbPort = process.env.MONGODB_PORT;
 const dbUser = process.env.MONGODB_USERNAME;
 const dbPassword = process.env.MONGODB_PASSWORD;
 const dbName = process.env.MONGODB_DB_NAME;
 
-const uri = `${connectionProtocol}://${dbUser}:${dbPassword}@${clusterAddress}/?retryWrites=true&w=majority`;
+// Include port in connection string if provided (for local MongoDB instances)
+const addressWithPort = dbPort ? `${clusterAddress}:${dbPort}` : clusterAddress;
+const uri = `${connectionProtocol}://${dbUser}:${dbPassword}@${addressWithPort}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri);
 
 console.log('Trying to connect to db');
